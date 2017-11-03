@@ -2,6 +2,11 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h3>{{ showAccount }}</h3>
+    <input v-model="word" placeholder="word">
+    <button type="button" @click="storeData()">Store Data</button>
+    <button type="button" @click="getData()">Get Data</button>
+    {{ confirmWord }}
+    <h4>{{ balance }}</h4>
   </div>
 </template>
 
@@ -22,7 +27,17 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Current Account:: '
+      msg: 'Current Account:: ',
+      word: '',
+      confirmWord: ''
+    }
+  },
+  methods: {
+    storeData() {
+      contract.set(this.word)
+    },
+    getData(){
+      this.confirmWord = provider.toAscii(contract.get())
     }
   },
   computed: {
